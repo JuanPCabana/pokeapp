@@ -1,11 +1,5 @@
+import { PokemonInfo, PokemonQuery } from "@/utils/types/pokemonTypes";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-interface PokemonQuery {
-  count: number;
-  next: string;
-  previous: string;
-  results: { name: string; url: string }[];
-}
 
 export const pokemonApi = createApi({
   reducerPath: "pokemonApi",
@@ -17,7 +11,10 @@ export const pokemonApi = createApi({
           `pokemon?limit=${limit}&offset=${offset}`,
       }
     ),
+    getPokemonByid: builder.query<PokemonInfo, string>({
+      query: (id) => `pokemon/${id}`,
+    }),
   }),
 });
 
-export const { useGetPokemonsQuery } = pokemonApi;
+export const { useGetPokemonsQuery, useGetPokemonByidQuery } = pokemonApi;
