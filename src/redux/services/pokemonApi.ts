@@ -1,4 +1,9 @@
-import { PokemonInfo, PokemonQuery } from "@/utils/types/pokemonTypes";
+import {
+  PokemonEvolutionChainInfo,
+  PokemonInfo,
+  PokemonQuery,
+  PokemonSpecieInfo,
+} from "@/utils/types/pokemonTypes";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const pokemonApi = createApi({
@@ -14,7 +19,18 @@ export const pokemonApi = createApi({
     getPokemonByid: builder.query<PokemonInfo, string>({
       query: (id) => `pokemon/${id}`,
     }),
+    getPokemonSpecieByid: builder.query<PokemonSpecieInfo, string>({
+      query: (id) => `pokemon-species/${id}`,
+    }),
+    getPokemonEvoChainByid: builder.query<PokemonEvolutionChainInfo, string | undefined>({
+      query: (id) => `evolution-chain/${id || ""}`,
+    }),
   }),
 });
 
-export const { useGetPokemonsQuery, useGetPokemonByidQuery } = pokemonApi;
+export const {
+  useGetPokemonsQuery,
+  useGetPokemonByidQuery,
+  useGetPokemonSpecieByidQuery,
+  useGetPokemonEvoChainByidQuery,
+} = pokemonApi;

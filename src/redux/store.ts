@@ -11,6 +11,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) => {
     return getDefaultMiddleware().concat(pokemonApi.middleware);
   },
+  devTools: true, // process.env.NODE_ENV !== "production",
 });
 
 setupListeners(store.dispatch);
