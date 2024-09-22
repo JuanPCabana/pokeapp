@@ -30,11 +30,11 @@ const HomePage = () => {
         offset
       }))
     }
-  }, [data, isLoading, error])
+  }, [data, isLoading, error, dispatch, limit, offset])
 
   useEffect(() => {
     refetch()
-  }, [type, generation, refetchTrigger])
+  }, [type, generation, refetchTrigger, refetch])
 
   const renderPokemonList = () => {
     if (isLoading) return <PokeballSpinner variant='main' />

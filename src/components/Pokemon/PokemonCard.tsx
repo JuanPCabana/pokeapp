@@ -18,7 +18,6 @@ import Pokeball from '@/public/img/pokeball.svg'
 import { pushPokemonInfo } from '@/redux/features/pokemonSlice'
 import { useDispatch } from 'react-redux'
 import { Pokemon } from '@/utils/types/pokemonTypes'
-import { useAppSelector } from '@/redux/hooks'
 import { Badge } from '../ui/badge'
 
 interface PokemonCardProps {

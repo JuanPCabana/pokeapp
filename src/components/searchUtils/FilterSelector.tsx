@@ -1,4 +1,4 @@
-import React, { use } from 'react'
+import React from 'react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select'
 import { POKEMON_TYPES_TRADUCTION, POKEMON_TYPES, POKEMON_GENERATIONS, POKEMON_GENERATIONS_LABELS } from '@/utils/constants'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
