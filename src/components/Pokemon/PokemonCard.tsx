@@ -7,58 +7,126 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { useGetPokemonByidQuery, useGetPokemonEvoChainByidQuery, useGetPokemonSpecieByidQuery } from '@/redux/services/pokemonApi'
+import { useGetPokemonByidQuery } from '@/redux/services/pokemonApi'
 import PokeballSpinner from '../misc/PokeballSpinner'
 import capitalizer from '@/utils/capitalizer'
 import { gradientMaker } from '@/utils/gradientMaker'
-import pokeballSvg from '@/public/img/pokeball.svg'
+import PokemonTypeIcon from '../misc/PokemonTypeIcon'
+import Image from 'next/image'
+import getPokemonTypeName from '@/utils/getPokemonTypeName'
+import Pokeball from '@/public/img/pokeball.svg'
+import { pushPokemonInfo } from '@/redux/features/pokemonSlice'
+import { useDispatch } from 'react-redux'
+import { Pokemon } from '@/utils/types/pokemonTypes'
+import { useAppSelector } from '@/redux/hooks'
 
 interface PokemonCardProps {
-  pokemon: {
-    name: string
-    url: string
-  }
+  pokemon: Pokemon
 }
 
 
 const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
-  const pokemonId = pokemon.url.split('pokemon/')[1]
+  const dispatch = useDispatch()
+  const pokemonId = pokemon.id
   const { data: pokemonData, error, isLoading } = useGetPokemonByidQuery(pokemonId)
-  const { data: specieData, isLoading: isLoading2 } = useGetPokemonSpecieByidQuery(pokemonId)
-  const { data: evoChainData, isLoading: isLoading3 } = useGetPokemonEvoChainByidQuery(specieData?.evolution_chain.url.split('evolution-chain/')[1])
-  console.log("🚀 ~ evoChainData:", evoChainData)
 
   const pokemonInfoRender = () => {
-    if (isLoading || isLoading2 || isLoading3) return <PokeballSpinner variant='pokemon' />
+    if (isLoading) return <PokeballSpinner variant='pokemon' />
     if (error) return <p>Error</p>
     else {
-      const gradient = gradientMaker(pokemonData?.types[0].type.name, pokemonData?.types[1]?.type.name)
-      const generationStrings = specieData?.generation?.name?.split('-')
-      const pokedexNumber = specieData?.pokedex_numbers[0]?.entry_number
-      return <Card style={gradient} className='border-0 transform transition-transform duration-300 hover:scale-105'>
-        <CardHeader>
-          <CardTitle>{pokedexNumber ? `${pokedexNumber} - ` : ''} {capitalizer(pokemon.name)}</CardTitle>
-          {generationStrings && <CardDescription className='text-black'>{capitalizer(generationStrings[0])} {generationStrings[1].toUpperCase()}</CardDescription>}
-        </CardHeader>
-        <CardContent>
-          {pokemonData && (
-            <>
-              <div className='w-full h-3/4'>
-                <img src={pokemonData.sprites.front_default ?? pokeballSvg.src} alt={pokemonData.name} className='w-full h-full' />
+      dispatch(pushPokemonInfo(pokemonData))
+      const gradient = gradientMaker(pokemonData?.types[0], pokemonData?.types[1])
+      const pokemonName = pokemonData?.name.split('-').map((word: string) => capitalizer(word)).join(' ')
+      const generationStrings = pokemonData?.generation && pokemonData?.generation.split("-")
+      const pokedexNumber = pokemonData?.nationalPokedexNumber
+      const strongAgainst = pokemonData?.combatData.strongAgainst2x
+      const weakAgainst = pokemonData?.combatData.weakAgainst2x
+      const weakAgainst4x = pokemonData?.combatData.weakAgainst4x
+
+      return (
+        <Card style={gradient} className='border-0 transform transition-transform duration-300 hover:scale-105'>
+
+          <CardHeader className='h-1/4'>
+            <CardTitle className=''>
+              N° {pokedexNumber}
+              <br />
+              {pokemonName}
+            </CardTitle>
+
+            {generationStrings &&
+              <CardDescription className='text-black'>{capitalizer(generationStrings[0])} {generationStrings[1]?.toUpperCase()}</CardDescription>
+            }
+          </CardHeader>
+
+          <CardContent className='pb-1.5 h-2/5' >
+            {pokemonData && (
+              <>
+                <div className='w-full h-3/4 flex justify-center items-center'>
+                  {pokemonData.img ?
+                    <Image width={100} height={100} src={pokemonData.img} alt={pokemonData.name} className='w-full h-full' />
+                    :
+                    <div className='w-full h-full flex justify-center items-center'>
+                      <Pokeball className='w-3/4 h-3/4' />
+                    </div>
+                  }
+                </div>
+                <ul>
+                  {pokemonData.types.map((type, index) => (
+                    <li key={index} className='w-full h-5 flex mb-1.5'>
+                      <div className='w-5 h-5'>
+                        <PokemonTypeIcon type={type} />
+                      </div>
+                      <p className='ml-2'>{capitalizer(getPokemonTypeName(type))}</p>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )
+            }
+          </CardContent>
+
+          <CardFooter className='flex flex-col items-start h-35pc' >
+
+            {strongAgainst && strongAgainst?.length > 0 &&
+              <div className='flex flex-col mb-2 max-w-full'>
+                <h2 className='text-black text-lg'>Fuerte contra (x2):</h2>
+                <div className='flex max-w-full' >
+                  {strongAgainst?.map((type, index) => (
+                    <div key={index} className='w-5 h-5 mr-1'>
+                      <PokemonTypeIcon tooltip={true} type={type} />
+                    </div>
+                  ))}
+                </div>
+              </div>}
+
+            {weakAgainst && weakAgainst?.length > 0 &&
+              <div className='flex flex-col mb-2 max-w-full'>
+                <h2 className='text-black text-lg'>Débil contra (x2):</h2>
+                <div className='flex' >
+                  {weakAgainst?.map((type, index) => (
+                    <div key={index} className='w-5 h-5 mr-1'>
+                      <PokemonTypeIcon tooltip={true} type={type} />
+                    </div>
+                  ))}
+                </div>
+              </div>}
+
+            {weakAgainst4x && weakAgainst4x?.length > 0 &&
+              <div className='flex flex-col mb-2 max-w-full'>
+                <h2 className='text-black text-lg'>Débil contra (x4):</h2>
+                <div className='flex' >
+                  {weakAgainst4x?.map((type, index) => (
+                    <div key={index} className='w-5 h-5 mr-1'>
+                      <PokemonTypeIcon tooltip={true} type={type} />
+                    </div>
+                  ))}
+                </div>
               </div>
-              <ul>
-                {pokemonData.types.map((type, index) => (
-                  <li key={index}>{capitalizer(type.type.name)}</li>
-                ))}
-              </ul>
-            </>
-          )
-          }
-        </CardContent>
-        {/* <CardFooter>
-      <p>Card Footer</p>
-      </CardFooter> */}
-      </Card>
+            }
+
+          </CardFooter>
+        </Card >
+      )
     }
   }
 

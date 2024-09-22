@@ -8,7 +8,7 @@ const PokemonList = () => {
   const pokemonList = useAppSelector((state) => state.pokemonReducer.displayPokemonList)
 
   return (
-    <div className='grid grid-cols-4 gap-3 min-h-4/5 p-8'>
+    <div className='grid sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4 2xl:grid-cols-6 gap-4 min-h-4/5 min-w-full p-8'>
       {pokemonList.map((pokemon) => <PokemonCard key={pokemon.name} pokemon={pokemon} />)}
     </div>
   )

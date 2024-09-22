@@ -1,56 +1,41 @@
 const gradientMaker = (
   type1: string | undefined = "normal",
-  type2: string | undefined = '#ccc'
+  type2: string | undefined
 ) => {
   const gradient = {
-    background: `linear-gradient(to bottom right, ${getColorByType(
-      type1
-    )}, ${getColorByType(type2)})`,
+    background: `linear-gradient(to bottom right, ${
+      getColorByType(type1).primary
+    }, ${
+      type2 ? getColorByType(type2).primary : getColorByType(type1).secondary
+    })`,
   };
   return gradient;
 };
 
-const getColorByType = (type: string) => {
-  switch (type) {
-    case "normal":
-      return "#A8A77A";
-    case "fire":
-      return "#EE8130";
-    case "water":
-      return "#6390F0";
-    case "electric":
-      return "#F7D02C";
-    case "grass":
-      return "#7AC74C";
-    case "ice":
-      return "#96D9D6";
-    case "fighting":
-      return "#C22E28";
-    case "poison":
-      return "#A33EA1";
-    case "ground":
-      return "#E2BF65";
-    case "flying":
-      return "#A98FF3";
-    case "psychic":
-      return "#F95587";
-    case "bug":
-      return "#A6B91A";
-    case "rock":
-      return "#B6A136";
-    case "ghost":
-      return "#735797";
-    case "dragon":
-      return "#6F35FC";
-    case "dark":
-      return "#705746";
-    case "steel":
-      return "#B7B7CE";
-    case "fairy":
-      return "#D685AD";
-    default:
-      return "#000";
-  }
+const typeColors: Record<string, { primary: string; secondary: string }> = {
+  normal: { primary: "#A8A77A", secondary: "#8A895E" },
+  fire: { primary: "#EE8130", secondary: "#D46F28" },
+  water: { primary: "#6390F0", secondary: "#5174C7" },
+  electric: { primary: "#F7D02C", secondary: "#D4B224" },
+  grass: { primary: "#7AC74C", secondary: "#62A53C" },
+  ice: { primary: "#96D9D6", secondary: "#7BB3B2" },
+  fighting: { primary: "#C22E28", secondary: "#A42621" },
+  poison: { primary: "#A33EA1", secondary: "#842F82" },
+  ground: { primary: "#E2BF65", secondary: "#C4A457" },
+  flying: { primary: "#A98FF3", secondary: "#8D72D6" },
+  psychic: { primary: "#F95587", secondary: "#D13F6D" },
+  bug: { primary: "#A6B91A", secondary: "#879417" },
+  rock: { primary: "#B6A136", secondary: "#96832B" },
+  ghost: { primary: "#735797", secondary: "#5E477A" },
+  dragon: { primary: "#6F35FC", secondary: "#5B2DC9" },
+  dark: { primary: "#705746", secondary: "#594634" },
+  steel: { primary: "#B7B7CE", secondary: "#9595A9" },
+  fairy: { primary: "#D685AD", secondary: "#B36C8F" },
+  default: { primary: "#c4c4c4", secondary: "#c4c4c4" }, // Opción por defecto
 };
+
+function getColorByType(type: string) {
+  return typeColors[type] || typeColors["default"];
+}
 
 export { gradientMaker, getColorByType };

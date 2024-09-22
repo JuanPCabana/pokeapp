@@ -76,13 +76,21 @@ const typeEffectiveness: Record<
   },
 };
 
-function getEffectiveness(types: string[]): {
+function getEffectiveness(types: string[] | undefined): {
   strongAgainst2x: string[];
   weakAgainst2x: string[];
   weakAgainst4x: string[];
 } {
   const strongAgainst: Record<string, number> = {};
   const weakAgainst: Record<string, number> = {};
+
+  if (!types) {
+    return {
+      strongAgainst2x: [],
+      weakAgainst2x: [],
+      weakAgainst4x: [],
+    };
+  }
 
   // Iteramos sobre los tipos del Pokémon
   types.forEach((type) => {

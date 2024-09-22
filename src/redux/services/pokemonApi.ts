@@ -1,36 +1,31 @@
+import makeQueryParams from "@/utils/makeQueryParams";
 import {
-  PokemonEvolutionChainInfo,
-  PokemonInfo,
+  FullPokemonData,
+  Generations,
   PokemonQuery,
-  PokemonSpecieInfo,
+  PokemonTypes,
 } from "@/utils/types/pokemonTypes";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+interface GetPokemonsIface {
+  limit: number;
+  offset: number;
+  type: PokemonTypes;
+  generation: Generations;
+}
+
 export const pokemonApi = createApi({
   reducerPath: "pokemonApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://pokeapi.co/api/v2/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
   endpoints: (builder) => ({
-    getPokemons: builder.query<PokemonQuery, { limit: number; offset: number }>(
-      {
-        query: ({ limit = 10000, offset = 0 }) =>
-          `pokemon?limit=${limit}&offset=${offset}`,
-      }
-    ),
-    getPokemonByid: builder.query<PokemonInfo, string>({
-      query: (id) => `pokemon/${id}`,
+    getPokemons: builder.query<PokemonQuery, GetPokemonsIface>({
+      query: ({ limit = 10000, offset = 0, type, generation }) =>
+        `pokemon-data?${makeQueryParams({ limit, offset, type, generation })}`,
     }),
-    getPokemonSpecieByid: builder.query<PokemonSpecieInfo, string>({
-      query: (id) => `pokemon-species/${id}`,
-    }),
-    getPokemonEvoChainByid: builder.query<PokemonEvolutionChainInfo, string | undefined>({
-      query: (id) => `evolution-chain/${id || ""}`,
+    getPokemonByid: builder.query<FullPokemonData, string>({
+      query: (id) => `pokemon-data/${id}`,
     }),
   }),
 });
 
-export const {
-  useGetPokemonsQuery,
-  useGetPokemonByidQuery,
-  useGetPokemonSpecieByidQuery,
-  useGetPokemonEvoChainByidQuery,
-} = pokemonApi;
+export const { useGetPokemonsQuery, useGetPokemonByidQuery } = pokemonApi;

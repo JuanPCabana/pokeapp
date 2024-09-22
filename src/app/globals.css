@@ -54,6 +54,7 @@ body {
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
+
   .dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
@@ -86,7 +87,21 @@ body {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Custom clasess */
+.h-35pc {
+  height: 35%;
+}
+
+.min-h-75vh {
+  min-height: 75vh;
+}
+
+.min-w-80vw {
+  min-width: 80vw;
 }

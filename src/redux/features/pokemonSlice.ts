@@ -1,11 +1,11 @@
-import { Pokemon } from "@/utils/types/pokemonTypes";
+import { FullPokemonData, Pokemon } from "@/utils/types/pokemonTypes";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface initialStateType {
   fullPokemonList: Pokemon[];
+  pokemonDataList: FullPokemonData[];
   displayPokemonList: Pokemon[];
   filterPokemonList: Pokemon[];
-  selectedPokemon: any;
   page: number;
   limit: number;
   offset: number;
@@ -13,11 +13,13 @@ interface initialStateType {
   searchQuery: string;
   typeFilter: string;
   generationFilter: string;
+  selectedPokemon: FullPokemonData | null;
 }
 
 const initialState: initialStateType = {
   fullPokemonList: [],
   displayPokemonList: [],
+  pokemonDataList: [],
   filterPokemonList: [],
   selectedPokemon: null,
   page: 1,
@@ -36,13 +38,22 @@ const pokemonSlice = createSlice({
     setFullPokemonList: (state, action) => {
       state.fullPokemonList = action.payload;
       state.maxPage = Math.ceil(state.fullPokemonList.length / state.limit);
+      state.filterPokemonList = state.fullPokemonList;
     },
     setDisplayPokemonList: (state, action) => {
       const { fullList, limit, offset } = action.payload;
       state.displayPokemonList = fullList.slice(offset, offset + limit);
     },
-    setPokemonInfo: (state, action) => {
-      state.selectedPokemon = action.payload;
+    pushPokemonInfo: (state, action) => {
+      const pokemon = action.payload;
+      const pokemonList = state.pokemonDataList;
+      const pokemonIndex = pokemonList.findIndex((p) => p.id === pokemon.id);
+      if (pokemonIndex === -1) {
+        pokemonList.push(pokemon);
+      } else {
+        pokemonList[pokemonIndex] = pokemon;
+      }
+      state.pokemonDataList = pokemonList;
     },
     setPage: (state, action) => {
       state.page = action.payload;
@@ -84,17 +95,34 @@ const pokemonSlice = createSlice({
         state.searchQuery = action.payload;
         state.page = 1;
         state.offset = 0;
-        state.filterPokemonList = state.fullPokemonList.filter(
+
+        const pokemonDataList = state.pokemonDataList
+          .filter((pokemon) => {
+            return pokemon.name.includes(state.searchQuery);
+          })
+          .map((pokemon) => pokemon.evolutionChain.map((evo) => evo.name))
+          .flat();
+        const fullListFiltered = state.fullPokemonList.filter(
           (pokemon) =>
             pokemon.name.includes(state.searchQuery) ||
-            pokemon.url.split("/").reverse()[1].includes(state.searchQuery)
+            pokemon.id.includes(state.searchQuery) ||
+            pokemonDataList.includes(pokemon.name)
         );
+
+        state.filterPokemonList = fullListFiltered;
+
         state.displayPokemonList = state.filterPokemonList.slice(
           state.offset,
           state.offset + state.limit
         );
         state.maxPage = Math.ceil(state.filterPokemonList.length / state.limit);
       }
+    },
+    reloadDisplayPokemonList: (state) => {
+      state.displayPokemonList = state.filterPokemonList.slice(
+        state.offset,
+        state.offset + state.limit
+      );
     },
   },
 });
@@ -105,8 +133,9 @@ export const {
   setNextPokemonPage,
   setPreviousPokemonPage,
   setPage,
-  setPokemonInfo,
+  pushPokemonInfo,
   setSearchQuery,
+  reloadDisplayPokemonList,
 } = pokemonSlice.actions;
 
 export default pokemonSlice.reducer;

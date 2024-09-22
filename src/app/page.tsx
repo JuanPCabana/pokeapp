@@ -28,7 +28,7 @@ const HomePage = () => {
   }
 
   const renderPokemonList = () => {
-    if (isLoading) return <PokeballSpinner />
+    if (isLoading) return <PokeballSpinner variant='main' />
     if (error) return <p>Error</p>
     return (
       <div className='flex justify-center items-center w-full h-full'>
@@ -38,13 +38,14 @@ const HomePage = () => {
   }
 
   return (
-    <div className='h-4/5 w-4/5'>
+    <div className='h-4/5 w-4/5 flex flex-col items-center'>
       <div className='flex flex-col justify-center items-center h-1/5'>
-        <h1>HomePage</h1>
+        <h1>Buscador por nombre o Numero de pokedex nacional</h1>
         <Input className='w-80' type='text' placeholder={placeHolderText} onChange={(e) => dispatch(setSearchQuery(e.target.value))} />
       </div>
-
-      {renderPokemonList()}
+      <div className='flex justify-center items-center min-h-75vh min-w-80vw' >
+        {renderPokemonList()}
+      </div>
       <Paginator />
     </div>
   )
