@@ -1,4 +1,9 @@
-import { FullPokemonData, Pokemon } from "@/utils/types/pokemonTypes";
+import {
+  FullPokemonData,
+  Generations,
+  Pokemon,
+  PokemonTypes,
+} from "@/utils/types/pokemonTypes";
 import { createSlice } from "@reduxjs/toolkit";
 
 interface initialStateType {
@@ -11,9 +16,10 @@ interface initialStateType {
   offset: number;
   maxPage: number;
   searchQuery: string;
-  typeFilter: string;
-  generationFilter: string;
+  typeFilter: PokemonTypes | "none";
+  generationFilter: Generations | "none";
   selectedPokemon: FullPokemonData | null;
+  refetchTrigger: boolean;
 }
 
 const initialState: initialStateType = {
@@ -27,8 +33,9 @@ const initialState: initialStateType = {
   offset: 0,
   maxPage: 1,
   searchQuery: "",
-  typeFilter: "",
-  generationFilter: "",
+  typeFilter: "none",
+  generationFilter: "none",
+  refetchTrigger: false,
 };
 
 const pokemonSlice = createSlice({
@@ -41,8 +48,11 @@ const pokemonSlice = createSlice({
       state.filterPokemonList = state.fullPokemonList;
     },
     setDisplayPokemonList: (state, action) => {
-      const { fullList, limit, offset } = action.payload;
-      state.displayPokemonList = fullList.slice(offset, offset + limit);
+      const { limit, offset } = action.payload;
+      state.displayPokemonList = state.fullPokemonList.slice(
+        offset,
+        offset + limit
+      );
     },
     pushPokemonInfo: (state, action) => {
       const pokemon = action.payload;
@@ -118,11 +128,31 @@ const pokemonSlice = createSlice({
         state.maxPage = Math.ceil(state.filterPokemonList.length / state.limit);
       }
     },
-    reloadDisplayPokemonList: (state) => {
-      state.displayPokemonList = state.filterPokemonList.slice(
-        state.offset,
-        state.offset + state.limit
-      );
+    setTypeFilter: (state, action) => {
+      state.typeFilter = action.payload;
+      state.page = 1;
+      state.offset = 0;
+    },
+    setGenerationFilter: (state, action) => {
+      state.generationFilter = action.payload;
+      state.page = 1;
+      state.offset = 0;
+    },
+    resetFilters: (state) => {
+      state.typeFilter = "none";
+      state.generationFilter = "none";
+      state.searchQuery = "";
+      state.refetchTrigger = !state.refetchTrigger;
+      pokemonSlice.caseReducers.setDisplayPokemonList(state, {
+        payload: {
+          limit: state.limit,
+          offset: state.offset,
+        },
+        type: "REFETCH",
+      });
+      state.page = 1;
+      state.offset = 0;
+      state.maxPage = Math.ceil(state.fullPokemonList.length / state.limit);
     },
   },
 });
@@ -135,7 +165,9 @@ export const {
   setPage,
   pushPokemonInfo,
   setSearchQuery,
-  reloadDisplayPokemonList,
+  setTypeFilter,
+  setGenerationFilter,
+  resetFilters,
 } = pokemonSlice.actions;
 
 export default pokemonSlice.reducer;

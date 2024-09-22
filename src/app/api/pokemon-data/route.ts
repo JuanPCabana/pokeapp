@@ -99,6 +99,10 @@ const getPokemonList = async (
       pokemonList = pokemonsByType;
     }
 
+    pokemonList = pokemonList.toSorted(
+      (a, b) => parseInt(a.id) - parseInt(b.id)
+    );
+
     const returnObj = {
       count: pokemonList.length,
       next: null,
@@ -122,7 +126,7 @@ const getPokemonList = async (
       count: pokemonDetails.count,
       next: pokemonDetails.next,
       previous: pokemonDetails.previous,
-      results: returnList,
+      results: returnList.toSorted((a, b) => parseInt(a.id) - parseInt(b.id)),
     };
     return NextResponse.json(returnObj);
   }

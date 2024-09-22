@@ -19,12 +19,17 @@ const Paginator = () => {
     <Pagination>
 
       <PaginationContent>
-        <PaginationItem >
-          <PaginationPrevious onClick={() => dispatch(setPreviousPokemonPage())} />
-        </PaginationItem>
-
+        {/* Previous pages logic */}
         {actualPage > 1 && (
           <>
+            <PaginationItem >
+              <PaginationPrevious onClick={() => dispatch(setPreviousPokemonPage())} />
+            </PaginationItem>
+
+            <PaginationItem >
+              <PaginationLink onClick={() => dispatch(setPage(1))} >{1}</PaginationLink>
+            </PaginationItem>
+
             {actualPage > 4 && (
               <PaginationItem>
                 <PaginationEllipsis />
@@ -33,7 +38,7 @@ const Paginator = () => {
 
             {new Array(actualPage - 1).fill(null).map((_, index: number) => (
               <>
-                {index + 5 > actualPage &&
+                {index + 4 > actualPage && index + 1 > 1 &&
                   <PaginationItem key={index}>
                     <PaginationLink onClick={() => dispatch(setPage(index + 1))} >{index + 1}</PaginationLink>
                   </PaginationItem>
@@ -43,15 +48,17 @@ const Paginator = () => {
           </>
         )}
 
+        {/* Current Page */}
         <PaginationItem>
           <PaginationLink className='bg-secondary text-black'>{actualPage}</PaginationLink>
         </PaginationItem>
 
+        {/* Next pages logic */}
         {actualPage < maxPage && (
           <>
-            {new Array(actualPage + 3).fill(null).map((_, index: number) => (
+            {new Array(actualPage + 2).fill(null).map((_, index: number) => (
               <>
-                {(index + 1) > actualPage &&
+                {(index + 1) > actualPage && (index + 1) < maxPage &&
                   <PaginationItem key={index}>
                     <PaginationLink onClick={() => dispatch(setPage(index + 1))} >{index + 1}</PaginationLink>
                   </PaginationItem>
@@ -67,9 +74,17 @@ const Paginator = () => {
           </>
         )}
 
-        <PaginationItem>
-          <PaginationNext onClick={() => dispatch(setNextPokemonPage())} />
-        </PaginationItem>
+        {/* Last page logic */}
+        {actualPage < maxPage &&
+          <>
+            <PaginationItem >
+              <PaginationLink onClick={() => dispatch(setPage(maxPage))} >{maxPage}</PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationNext onClick={() => dispatch(setNextPokemonPage())} />
+            </PaginationItem>
+          </>
+        }
       </PaginationContent>
 
     </Pagination>

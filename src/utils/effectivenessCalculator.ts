@@ -1,80 +1,4 @@
-const typeEffectiveness: Record<
-  string,
-  { strongAgainst: string[]; weakAgainst: string[] }
-> = {
-  normal: {
-    strongAgainst: [],
-    weakAgainst: ["fighting"],
-  },
-  fire: {
-    strongAgainst: ["grass", "bug", "ice", "steel"],
-    weakAgainst: ["water", "rock", "ground"],
-  },
-  water: {
-    strongAgainst: ["fire", "ground", "rock"],
-    weakAgainst: ["electric", "grass"],
-  },
-  electric: {
-    strongAgainst: ["water", "flying"],
-    weakAgainst: ["ground"],
-  },
-  grass: {
-    strongAgainst: ["water", "ground", "rock"],
-    weakAgainst: ["fire", "ice", "poison", "flying", "bug"],
-  },
-  ice: {
-    strongAgainst: ["grass", "ground", "flying", "dragon"],
-    weakAgainst: ["fire", "fighting", "rock", "steel"],
-  },
-  fighting: {
-    strongAgainst: ["normal", "ice", "rock", "dark", "steel"],
-    weakAgainst: ["flying", "psychic", "fairy"],
-  },
-  poison: {
-    strongAgainst: ["grass", "fairy"],
-    weakAgainst: ["ground", "psychic"],
-  },
-  ground: {
-    strongAgainst: ["fire", "electric", "poison", "rock", "steel"],
-    weakAgainst: ["water", "ice", "grass"],
-  },
-  flying: {
-    strongAgainst: ["grass", "fighting", "bug"],
-    weakAgainst: ["electric", "ice", "rock"],
-  },
-  psychic: {
-    strongAgainst: ["fighting", "poison"],
-    weakAgainst: ["bug", "ghost", "dark"],
-  },
-  bug: {
-    strongAgainst: ["grass", "psychic", "dark"],
-    weakAgainst: ["fire", "flying", "rock"],
-  },
-  rock: {
-    strongAgainst: ["fire", "ice", "flying", "bug"],
-    weakAgainst: ["water", "grass", "fighting", "ground", "steel"],
-  },
-  ghost: {
-    strongAgainst: ["psychic", "ghost"],
-    weakAgainst: ["ghost", "dark"],
-  },
-  dragon: {
-    strongAgainst: ["dragon"],
-    weakAgainst: ["ice", "dragon", "fairy"],
-  },
-  dark: {
-    strongAgainst: ["psychic", "ghost"],
-    weakAgainst: ["fighting", "bug", "fairy"],
-  },
-  steel: {
-    strongAgainst: ["ice", "rock", "fairy"],
-    weakAgainst: ["fire", "fighting", "ground"],
-  },
-  fairy: {
-    strongAgainst: ["fighting", "dragon", "dark"],
-    weakAgainst: ["poison", "steel"],
-  },
-};
+import { TYPE_EFFECTIVENESS } from "./constants";
 
 function getEffectiveness(types: string[] | undefined): {
   strongAgainst2x: string[];
@@ -94,14 +18,14 @@ function getEffectiveness(types: string[] | undefined): {
 
   // Iteramos sobre los tipos del Pokémon
   types.forEach((type) => {
-    if (typeEffectiveness[type]) {
+    if (TYPE_EFFECTIVENESS[type]) {
       // Sumamos fortalezas
-      typeEffectiveness[type].strongAgainst.forEach((strongType) => {
+      TYPE_EFFECTIVENESS[type].strongAgainst.forEach((strongType) => {
         strongAgainst[strongType] = (strongAgainst[strongType] || 0) + 1;
       });
 
       // Sumamos debilidades
-      typeEffectiveness[type].weakAgainst.forEach((weakType) => {
+      TYPE_EFFECTIVENESS[type].weakAgainst.forEach((weakType) => {
         weakAgainst[weakType] = (weakAgainst[weakType] || 0) + 1;
       });
     }

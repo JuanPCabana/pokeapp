@@ -10,8 +10,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 interface GetPokemonsIface {
   limit: number;
   offset: number;
-  type: PokemonTypes;
-  generation: Generations;
+  type: PokemonTypes | "none";
+  generation: Generations | "none";
 }
 
 export const pokemonApi = createApi({

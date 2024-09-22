@@ -19,6 +19,7 @@ import { pushPokemonInfo } from '@/redux/features/pokemonSlice'
 import { useDispatch } from 'react-redux'
 import { Pokemon } from '@/utils/types/pokemonTypes'
 import { useAppSelector } from '@/redux/hooks'
+import { Badge } from '../ui/badge'
 
 interface PokemonCardProps {
   pokemon: Pokemon
@@ -46,7 +47,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
       return (
         <Card style={gradient} className='border-0 transform transition-transform duration-300 hover:scale-105'>
 
-          <CardHeader className='h-1/4'>
+          <CardHeader className='h-1/5'>
             <CardTitle className=''>
               N° {pokedexNumber}
               <br />
@@ -54,11 +55,13 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
             </CardTitle>
 
             {generationStrings &&
-              <CardDescription className='text-black'>{capitalizer(generationStrings[0])} {generationStrings[1]?.toUpperCase()}</CardDescription>
+              <Badge variant='default' className='w-fit'>
+                <CardDescription className=' text-white' >{capitalizer(generationStrings[0])} {generationStrings[1]?.toUpperCase()}</CardDescription>
+              </Badge>
             }
           </CardHeader>
 
-          <CardContent className='pb-1.5 h-2/5' >
+          <CardContent className='pb-1.5 h-[46%]' >
             {pokemonData && (
               <>
                 <div className='w-full h-3/4 flex justify-center items-center'>
@@ -72,12 +75,14 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
                 </div>
                 <ul>
                   {pokemonData.types.map((type, index) => (
-                    <li key={index} className='w-full h-5 flex mb-1.5'>
-                      <div className='w-5 h-5'>
-                        <PokemonTypeIcon type={type} />
-                      </div>
-                      <p className='ml-2'>{capitalizer(getPokemonTypeName(type))}</p>
-                    </li>
+                    <Badge key={index} variant="default" className='w-fit flex mb-1.5 '>
+                      <li className='flex items-center '>
+                        <div className='w-5 h-5'>
+                          <PokemonTypeIcon type={type} />
+                        </div>
+                        <p className='ml-2'>{capitalizer(getPokemonTypeName(type))}</p>
+                      </li>
+                    </Badge>
                   ))}
                 </ul>
               </>
@@ -85,7 +90,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
             }
           </CardContent>
 
-          <CardFooter className='flex flex-col items-start h-35pc' >
+          <CardFooter className='flex flex-col items-start h-[34%]' >
 
             {strongAgainst && strongAgainst?.length > 0 &&
               <div className='flex flex-col mb-2 max-w-full'>
