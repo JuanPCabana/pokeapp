@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  nextjs:
+    image: node:20.17-alpine3.19
+    container_name: nextjs_app
+    working_dir: /usr/src/app
+    volumes:
+      - ./:/usr/src/app
+    expose:
+      - "3000"
+    environment:
+      - VIRTUAL_HOST=pokedex.pcabana.net
+      - LETSENCRYPT_HOST=pokedex.pcabana.net
+      - LETSENCRYPT_EMAIL=juanpx99@gmail.com
+    command: sh -c "npm install && npm run build && npm start"
+
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./nginx/vhost.d:/etc/nginx/vhost.d
+      - ./nginx/certs:/etc/nginx/certs:ro
+      - ./nginx/html:/usr/share/nginx/html
+    restart: always
+
+  nginx-letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: nginx-letsencrypt
+    environment:
+      - NGINX_PROXY_CONTAINER=nginx-proxy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./nginx/certs:/etc/nginx/certs:rw
+    depends_on:
+      - nginx-proxy
+    restart: always
