@@ -1,13 +1,14 @@
 import { NextResponse, NextRequest } from "next/server";
 import axios from "axios";
 import {
+  FullPokemonData,
   PokedexIface,
   PokemonInfo,
   PokemonStatsIface,
   PokemonTypeIface,
 } from "@/utils/types/pokemonTypes";
 import evolutionChainFormatter from "@/utils/evolutionChainFormatter";
-import getEffectiveness from "@/utils/effectivenessCalculator";
+import { getTypesEffectiveness } from "@/utils/effectivenessCalculator";
 
 export async function GET(
   req: NextRequest,
@@ -32,13 +33,12 @@ export async function GET(
       specieDetails.evolution_chain.url
     );
 
-    const combatDetails = getEffectiveness(
-      pokemonDetails?.types.map((type) => type.type.name)
-    );
+    const typesList = pokemonDetails?.types.map((type) => type.type.name);
+    const resistances = getTypesEffectiveness(typesList, "defending");
 
     // Formatear la respuesta como la necesitas
-    const formattedData = {
-      id: pokemonDetails.id,
+    const formattedData: FullPokemonData = {
+      id: pokemonDetails.id.toString(),
       name: pokemonDetails.name,
       img: pokemonDetails.sprites.front_default ?? "",
       stats: pokemonDetails.stats.map((stat: PokemonStatsIface) => ({
@@ -59,7 +59,7 @@ export async function GET(
       evolutionChain:
         evolutionDetails?.chain &&
         evolutionChainFormatter(evolutionDetails?.chain),
-      combatData: combatDetails,
+      resistances,
     };
 
     // Enviar respuesta formateada al cliente

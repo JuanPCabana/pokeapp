@@ -101,17 +101,25 @@ interface FullPokemonData {
   id: string;
   name: string;
   img: string;
-  stats: PokemonStatsIface[];
+  stats: {
+    name: string;
+    value: number;
+    effort: number;
+  }[];
   types: string[];
   generation: string;
   habitat: string;
   nationalPokedexNumber: string;
   evolutionChain: Pokemon[];
-  combatData: {
-    strongAgainst2x: string[];
-    weakAgainst2x: string[];
-    weakAgainst4x: string[];
-  };
+  resistances: EffectivenessIface;
+}
+
+interface EffectivenessIface {
+  x0dmg: PokemonTypes[];
+  halfdmg: PokemonTypes[];
+  x2dmg: PokemonTypes[];
+  quarterdmg: PokemonTypes[];
+  x4dmg: PokemonTypes[];
 }
 
 type PokemonTypes =
@@ -160,4 +168,5 @@ export type {
   FullPokemonData,
   PokemonTypes,
   Generations,
+  EffectivenessIface,
 };
