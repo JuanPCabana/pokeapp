@@ -154,6 +154,9 @@ const pokemonSlice = createSlice({
       state.offset = 0;
       state.maxPage = Math.ceil(state.fullPokemonList.length / state.limit);
     },
+    setSelectedPokemon: (state, action) => {
+      state.selectedPokemon = action.payload;
+    },
   },
 });
 
@@ -168,6 +171,7 @@ export const {
   setTypeFilter,
   setGenerationFilter,
   resetFilters,
+  setSelectedPokemon,
 } = pokemonSlice.actions;
 
 export default pokemonSlice.reducer;

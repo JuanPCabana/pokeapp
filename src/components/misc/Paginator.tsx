@@ -57,13 +57,11 @@ const Paginator = () => {
         {actualPage < maxPage && (
           <>
             {new Array(actualPage + 2).fill(null).map((_, index: number) => (
-              <>
-                {(index + 1) > actualPage && (index + 1) < maxPage &&
-                  <PaginationItem key={index}>
-                    <PaginationLink onClick={() => dispatch(setPage(index + 1))} >{index + 1}</PaginationLink>
-                  </PaginationItem>
-                }
-              </>
+              (index + 1) > actualPage && (index + 1) < maxPage &&
+              <PaginationItem key={index}>
+                <PaginationLink onClick={() => dispatch(setPage(index + 1))} >{index + 1}</PaginationLink>
+              </PaginationItem>
+
             ))}
 
             {actualPage + 3 < maxPage && (
