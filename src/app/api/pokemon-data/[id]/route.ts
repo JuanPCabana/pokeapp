@@ -3,6 +3,7 @@ import axios from "axios";
 import {
   FullPokemonData,
   PokedexIface,
+  Pokemon,
   PokemonInfo,
   PokemonStatsIface,
   PokemonTypeIface,
@@ -36,7 +37,7 @@ export async function GET(
     const typesList = pokemonDetails?.types.map((type) => type.type.name);
     const resistances = getTypesEffectiveness(typesList, "defending");
 
-    // Formatear la respuesta como la necesitas
+    // Formatear la respuesta
     const formattedData: FullPokemonData = {
       id: pokemonDetails.id.toString(),
       name: pokemonDetails.name,
@@ -59,6 +60,9 @@ export async function GET(
       evolutionChain:
         evolutionDetails?.chain &&
         evolutionChainFormatter(evolutionDetails?.chain),
+      eggGroups: specieDetails?.egg_groups.map(
+        (eggGroup: Pokemon) => eggGroup.name
+      ),
       resistances,
     };
 

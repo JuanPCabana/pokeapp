@@ -1,11 +1,13 @@
 import { TYPE_EFFECTIVENESS } from "./typeEffectiveness";
 import { POKEMON_TYPES, POKEMON_TYPES_TRADUCTION } from "./pokemonTypes";
+import { POKEMON_STATS_TRADUCTION } from "./pokemonStats";
+import { POKEMON_HABITAT_TRADUCTION } from "./pokemonHabitats";
+import { POKEMON_EGG_GROUPS_TRADUCTION } from "./pokemonEggGroups";
 import {
   POKEMON_GENERATIONS,
   POKEMON_GENERATIONS_LABELS,
 } from "./pokemonGenerations";
 import urls from "./url";
-
 export {
   urls,
   TYPE_EFFECTIVENESS,
@@ -13,4 +15,7 @@ export {
   POKEMON_TYPES_TRADUCTION,
   POKEMON_GENERATIONS,
   POKEMON_GENERATIONS_LABELS,
+  POKEMON_STATS_TRADUCTION,
+  POKEMON_HABITAT_TRADUCTION,
+  POKEMON_EGG_GROUPS_TRADUCTION,
 };

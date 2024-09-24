@@ -112,6 +112,7 @@ interface FullPokemonData {
   nationalPokedexNumber: string;
   evolutionChain: Pokemon[];
   resistances: EffectivenessIface;
+  eggGroups: string[];
 }
 
 interface EffectivenessIface {

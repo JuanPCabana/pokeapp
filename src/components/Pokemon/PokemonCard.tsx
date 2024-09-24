@@ -46,6 +46,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
       const pokemonName = pokemonData?.name.split('-').map((word: string) => capitalizer(word)).join(' ')
       const generationStrings = pokemonData?.generation && pokemonData?.generation.split("-")
       const pokedexNumber = pokemonData?.nationalPokedexNumber
+      const veryStrongAgainst = pokemonData?.resistances?.quarterdmg
       const strongAgainst = pokemonData?.resistances?.halfdmg
       const weakAgainst = pokemonData?.resistances?.x2dmg
       const weakAgainst4x = pokemonData?.resistances?.x4dmg
@@ -65,7 +66,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
 
             {generationStrings &&
               <Badge variant='default' className='w-fit z-50' onClick={() => dispatch(setGenerationFilter(pokemonData?.generation))} >
-                <CardDescription className=' text-white' >{capitalizer(generationStrings[0])} {generationStrings[1]?.toUpperCase()}</CardDescription>
+                <CardDescription className=' text-white' >Gen. {generationStrings[1]?.toUpperCase()}</CardDescription>
               </Badge>
             }
 
@@ -103,41 +104,57 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
           </CardContent>
 
           <CardFooter className='flex flex-col items-start h-[34%]' >
+            <CardDescription className=' text-white' >Daño:</CardDescription>
+            {veryStrongAgainst && veryStrongAgainst?.length > 0 &&
+              <div className='flex flex-col mb-2 max-w-full'>
+                {/* <h2 className='text-black text-lg'>Resistente contra (x1/2):</h2> */}
+                <Badge className='flex max-w-full' >
+                  {veryStrongAgainst?.map((type, index) => (
+                    <div key={index} className='w-5 h-5 mr-1' onClick={() => dispatch(setTypeFilter(type))} >
+                      <PokemonTypeIcon tooltip={true} type={type} />
+                    </div>
+                  ))}
+                  (x1/4)
+                </Badge>
+              </div>}
 
             {strongAgainst && strongAgainst?.length > 0 &&
               <div className='flex flex-col mb-2 max-w-full'>
-                <h2 className='text-black text-lg'>Resistente contra (x1/2):</h2>
-                <div className='flex max-w-full' >
+                {/* <h2 className='text-black text-lg'>Resistente contra (x1/2):</h2> */}
+                <Badge className='flex max-w-full' >
                   {strongAgainst?.map((type, index) => (
                     <div key={index} className='w-5 h-5 mr-1' onClick={() => dispatch(setTypeFilter(type))} >
                       <PokemonTypeIcon tooltip={true} type={type} />
                     </div>
                   ))}
-                </div>
+                  (x1/2)
+                </Badge>
               </div>}
 
             {weakAgainst && weakAgainst?.length > 0 &&
               <div className='flex flex-col mb-2 max-w-full'>
-                <h2 className='text-black text-lg'>Débil contra (x2):</h2>
-                <div className='flex' >
+                {/* <h2 className='text-black text-lg'>Débil contra (x2):</h2> */}
+                <Badge className='flex max-w-full' >
                   {weakAgainst?.map((type, index) => (
                     <div key={index} className='w-5 h-5 mr-1' onClick={() => dispatch(setTypeFilter(type))} >
                       <PokemonTypeIcon tooltip={true} type={type} />
                     </div>
                   ))}
-                </div>
+                  (x2)
+                </Badge>
               </div>}
 
             {weakAgainst4x && weakAgainst4x?.length > 0 &&
               <div className='flex flex-col mb-2 max-w-full'>
-                <h2 className='text-black text-lg'>Débil contra (x4):</h2>
-                <div className='flex' >
+                {/* <h2 className='text-black text-lg'>Débil contra (x4):</h2> */}
+                <Badge className='flex max-w-full' >
                   {weakAgainst4x?.map((type, index) => (
                     <div key={index} className='w-5 h-5 mr-1' onClick={() => dispatch(setTypeFilter(type))} >
                       <PokemonTypeIcon tooltip={true} type={type} />
                     </div>
                   ))}
-                </div>
+                  (x4)
+                </Badge>
               </div>
             }
 
