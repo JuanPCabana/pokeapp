@@ -1,3 +1,8 @@
+/**
+ * Nombres de las regiones en base a la generación de los pokemones.
+ * @constant
+ * @example POKEMON_GENERATIONS[generation-i] => "1era. Kanto"
+ */
 const POKEMON_GENERATIONS_LABELS: Record<string, string> = {
   "generation-i": "1era. Kanto",
   "generation-ii": "2da. Johto",
@@ -10,6 +15,11 @@ const POKEMON_GENERATIONS_LABELS: Record<string, string> = {
   "generation-ix": "9na. Hisui",
 };
 
+/**
+ * Lista de generaciones de pokemones.
+ * @constant
+ * @example POKEMON_GENERATIONS[0] => "generation-i"
+ */
 const POKEMON_GENERATIONS: string[] = [
   "generation-i",
   "generation-ii",

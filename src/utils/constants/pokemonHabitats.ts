@@ -11,6 +11,11 @@ interface PokemonHabitatTraduction {
   [key: string]: string;
 }
 
+/**
+ * Traducción de los habitats de los pokemones.
+ * @example
+ * console.log(POKEMON_HABITAT_TRADUCTION['cave']) => 'Cueva'
+ */
 const POKEMON_HABITAT_TRADUCTION: PokemonHabitatTraduction = {
   cave: "Cueva",
   forest: "Bosque",

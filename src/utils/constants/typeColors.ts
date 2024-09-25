@@ -1,3 +1,8 @@
+/**
+ * @description Colores de los tipos de pokémon
+ * @example
+ * TYPE_COLORS["normal"] // { primary: "#A8A77A", secondary: "#8A895E" }
+ */
 const TYPE_COLORS: Record<string, { primary: string; secondary: string }> = {
   normal: { primary: "#A8A77A", secondary: "#8A895E" },
   fire: { primary: "#EE8130", secondary: "#D46F28" },

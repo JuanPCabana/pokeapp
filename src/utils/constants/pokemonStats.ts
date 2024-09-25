@@ -8,6 +8,11 @@ interface PokemonStatsTraduction {
   [key: string]: string;
 }
 
+/**
+ * Traducción de las estadísticas de los pokemones.
+ * @example
+ * console.log(POKEMON_STATS_TRADUCTION['hp']) => 'PS'
+ */
 const POKEMON_STATS_TRADUCTION: PokemonStatsTraduction = {
   hp: "PS",
   attack: "Ataque",

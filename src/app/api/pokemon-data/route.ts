@@ -9,6 +9,8 @@ import {
 import { urls } from "@/utils/constants";
 import { isValidGeneration, isValidPokemonType } from "@/utils/validators";
 
+//endpoint para listar todos los pokemones
+
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const limit = searchParams.get("limit") || "10000";

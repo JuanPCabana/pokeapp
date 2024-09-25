@@ -4,6 +4,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 import logo from '@/public/img/headerLogo.png'
 
+/**
+ * Componente de cabecera
+ * @returns JSX
+ */
 const Header = () => {
   return (
     <header className='bg-primary h-20 flex justify-between'>

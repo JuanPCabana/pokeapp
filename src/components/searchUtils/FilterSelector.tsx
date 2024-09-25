@@ -6,13 +6,20 @@ import { setTypeFilter, setGenerationFilter } from '@/redux/features/pokemonSlic
 
 type VariantTypes = 'type' | 'generation'
 
-interface FilterSelectorProps {
+interface FilterSelectorProps extends React.HTMLAttributes<HTMLDivElement> {
   variant: VariantTypes
   className?: string
-  props?: Record<string, unknown>
   selectProps?: Record<string, unknown>
 }
 
+/**
+ * Componente que se encarga de mostrar un selector de filtros para los pokemones.
+ * @param variant Tipo de filtro a seleccionar.
+ * @param className Clases adicionales para el contenedor.
+ * @param props Propiedades adicionales para el contenedor.
+ * @param selectProps Propiedades adicionales para el selector.
+ * @returns JSX
+ */
 const FilterSelector: React.FC<FilterSelectorProps> = ({ variant, className, selectProps, ...props }) => {
 
   const dispatch = useAppDispatch()

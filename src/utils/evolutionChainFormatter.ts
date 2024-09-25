@@ -1,5 +1,13 @@
 import { EvoChainIface, Pokemon } from "./types/pokemonTypes";
 
+
+/**
+ * Formatea la cadena de evolución de un pokemon.
+ *
+ * @param chain - cadena de evolución del pokemon.
+ * @param addCurrent - valor que indica si se debe agregar el pokemon actual a la cadena.
+ * @returns  Lista de pokemon que conforman la cadena de evolución.
+ */
 const evolutionChainFormatter: (
   chain: EvoChainIface,
   addCurrent?: boolean

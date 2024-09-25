@@ -10,10 +10,9 @@ import SearchBar from '@/components/searchUtils/SearchBar';
 
 const HomePage = () => {
 
-  const placeHolderText = 'Nombre del pokemon o ID'
-
   const dispatch = useAppDispatch()
 
+  const placeHolderText = 'Nombre del pokemon o ID'
 
   const limit = useAppSelector((state) => state.pokemonReducer.limit)
   const offset = useAppSelector((state) => state.pokemonReducer.offset)
@@ -21,17 +20,20 @@ const HomePage = () => {
   const generation = useAppSelector((state) => state.pokemonReducer.generationFilter)
   const refetchTrigger = useAppSelector((state) => state.pokemonReducer.refetchTrigger)
   const searchQuery = useAppSelector((state) => state.pokemonReducer.searchQuery)
+  const fullPokemonList = useAppSelector((state) => state.pokemonReducer.fullPokemonList)
   const { data, error, isLoading, refetch } = useGetPokemonsQuery({ limit: 10000, offset: 0, type, generation })
 
   useEffect(() => {
     if (!isLoading && !error && data) {
-      dispatch(setFullPokemonList(data.results))
-      dispatch(setDisplayPokemonList({
-        limit,
-        offset
-      }))
+      if (fullPokemonList.length === 0 || searchQuery === '') {
+        dispatch(setFullPokemonList(data.results))
+        dispatch(setDisplayPokemonList({
+          limit,
+          offset
+        }))
+      }
     }
-  }, [data, isLoading, error, dispatch, limit, offset])
+  }, [data, isLoading, error, dispatch, limit, offset, fullPokemonList.length, searchQuery])
 
   useEffect(() => {
     refetch()

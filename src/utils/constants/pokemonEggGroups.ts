@@ -16,6 +16,11 @@ interface PokemonEggGroupsTraduction {
   [key: string]: string;
 }
 
+/**
+ * Traducción de los grupos de huevos de los pokemones.
+ * @example
+ * console.log(POKEMON_EGG_GROUPS_TRADUCTION['monster']) => 'Monstruo'
+ */
 const POKEMON_EGG_GROUPS_TRADUCTION: PokemonEggGroupsTraduction = {
   monster: "Monstruo",
   bug: "Bicho",

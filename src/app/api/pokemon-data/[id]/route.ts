@@ -10,6 +10,9 @@ import {
 } from "@/utils/types/pokemonTypes";
 import evolutionChainFormatter from "@/utils/evolutionChainFormatter";
 import { getTypesEffectiveness } from "@/utils/effectivenessCalculator";
+import { urls } from "@/utils/constants";
+
+// Endpoint para traer todos los detalles de 1 pokemon y mapear la respuesta a voluntad
 
 export async function GET(
   req: NextRequest,
@@ -18,10 +21,10 @@ export async function GET(
   try {
     const pokemonId = params.id;
 
-    const basePath = "https://pokeapi.co/api/v2";
+    // Fetchear los detalles del pokemon
 
     const { data: pokemonDetails } = await axios.get<PokemonInfo>(
-      `${basePath}/pokemon/${pokemonId}`
+      `${urls.POKEMON_DETAIL_URL}/${pokemonId}`
     );
 
     if (!pokemonDetails) {

@@ -15,10 +15,17 @@ interface ResistanceMapperProps {
   listBoxClass?: string
 }
 
-const ResistanceMapper: React.FC<ResistanceMapperProps> = ({ dmgMapper = [], title, titleClass = "", boxClass = "", badgeClass = "", listBoxClass = "" }) => {
-
-
-
+/**
+ * Mapea los tipos de daño de un pokemon
+ * @param dmgMapper Lista de tipos de pokemon
+ * @param title Título del mapeo
+ * @param titleClass Clase del título
+ * @param boxClass Clase del contenedor
+ * @param badgeClass Clase de la chapa
+ * @param listBoxClass Clase de la lista
+ * @returns JSX
+ */
+const TypesMapper: React.FC<ResistanceMapperProps> = ({ dmgMapper = [], title, titleClass = "", boxClass = "", badgeClass = "", listBoxClass = "" }) => {
   return (
     dmgMapper && dmgMapper.length > 0 &&
     <div className={'flex flex-col ' + boxClass}>
@@ -43,5 +50,5 @@ const ResistanceMapper: React.FC<ResistanceMapperProps> = ({ dmgMapper = [], tit
   )
 }
 
-export default ResistanceMapper
+export default TypesMapper
 

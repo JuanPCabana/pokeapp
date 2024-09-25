@@ -6,6 +6,10 @@ const POKEMON_EVOLUTION_CHAIN_URL = `${BASE_URL}/evolution-chain`;
 const POKEMON_TYPE_URL = `${BASE_URL}/type`;
 const POKEMON_GENERATION_URL = `${BASE_URL}/generation`;
 
+/**
+ * Description
+ * Constante que contiene las urls de la api de pokemon
+ */
 const urls = Object.freeze({
   POKEMON_LIST_URL,
   POKEMON_DETAIL_URL,

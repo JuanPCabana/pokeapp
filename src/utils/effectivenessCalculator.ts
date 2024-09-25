@@ -3,6 +3,13 @@ import { EffectivenessIface, PokemonTypes } from "./types/pokemonTypes";
 
 type Variants = "defending" | "attacking";
 
+/**
+ * Calcula la efectividad de los pokemon en base a sus tipos.
+ *
+ * @param types - lista de tipos de pokemon.
+ * @param variant - valor que indica si se está calculando la efectividad de un ataque o de una defensa.
+ * @returns  Objeto con los tipos de daño que recibe/ocasiona el pokemon segun sea el caso.
+ */
 const getTypesEffectiveness = (
   types: string[] | undefined = [],
   variant: Variants
@@ -92,8 +99,6 @@ const getTypesEffectiveness = (
     quarterdmg: quarterdmg,
     x4dmg: x4dmg,
   };
-
-  
 };
 
 export { getTypesEffectiveness };

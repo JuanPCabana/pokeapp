@@ -3,13 +3,20 @@ import PokemonCard from './PokemonCard'
 import { useAppSelector } from '@/redux/hooks'
 
 
-
+/**
+ * Elemento que retorna una lista de pokemones en forma de tarjetas.
+ * @returns JSX
+ */
 const PokemonList = () => {
   const pokemonList = useAppSelector((state) => state.pokemonReducer.displayPokemonList)
 
   if (pokemonList.length === 0) return (
     <div className='flex justify-center items-center w-full h-full'>
-      <p className='text-2xl text-gray-500'>No se encontraron pokemones</p>
+      <p className='text-2xl text-gray-500'>
+        No se encontraron pokemones
+        <br />
+        Prueba eliminar los filtros o buscar otro pokemon
+      </p>
     </div>
   )
 

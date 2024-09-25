@@ -18,10 +18,12 @@ export const pokemonApi = createApi({
   reducerPath: "pokemonApi",
   baseQuery: fetchBaseQuery({ baseUrl: "/api" }),
   endpoints: (builder) => ({
+    //endpoint para listar todos los pokemones
     getPokemons: builder.query<PokemonQuery, GetPokemonsIface>({
       query: ({ limit = 10000, offset = 0, type, generation }) =>
         `pokemon-data?${makeQueryParams({ limit, offset, type, generation })}`,
     }),
+    //endpoint para obtener un pokemon por id
     getPokemonByid: builder.query<FullPokemonData, string>({
       query: (id) => `pokemon-data/${id}`,
     }),

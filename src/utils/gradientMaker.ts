@@ -1,5 +1,12 @@
-import { TYPE_COLORS } from "./typeColors";
+import { TYPE_COLORS } from "./constants/typeColors";
 
+/**
+ * Calcula un gradiente de colores en base a los tipos de un pokemon.
+ * @param type1 Recibe el tipo de pokemon
+ * @param type2 Recibe el segundo tipo de pokemon (opcional)
+ * @param reverse Cambia el orden de los colores del gradiente para colocar el color secundario en la parte superior
+ * @returns retorna un objeto con el gradiente de colores
+ */
 const gradientMaker = (
   type1: string = "normal",
   type2?: string,
@@ -20,6 +27,11 @@ const gradientMaker = (
   return gradient;
 };
 
+/**
+ * Obtiene el color de un tipo de pokemon.
+ * @param type Recibe el tipo de pokemon
+ * @returns Retorna el color del tipo de pokemon
+ */
 function getColorByType(type: string) {
   return TYPE_COLORS[type] || TYPE_COLORS["default"];
 }

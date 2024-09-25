@@ -1,3 +1,8 @@
+/**
+ * @description Constante con la traducción de los tipos de pokemon.
+ * @example
+ * console.log(POKEMON_TYPES_TRADUCTION['bug']) => 'Bicho'
+ */
 const POKEMON_TYPES_TRADUCTION: Record<string, string> = {
   bug: "Bicho",
   dark: "Siniestro",
@@ -19,6 +24,11 @@ const POKEMON_TYPES_TRADUCTION: Record<string, string> = {
   water: "Agua",
 };
 
+/**
+ * @description Lista con los tipos de pokemon.
+ * @example
+ * console.log(POKEMON_TYPES[0]) => 'bug'
+ */
 const POKEMON_TYPES = [
   "bug",
   "dark",

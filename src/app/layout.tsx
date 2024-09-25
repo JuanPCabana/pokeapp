@@ -17,7 +17,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Pokemon App",
-  description: "Pokemon App",
+  description: "Pokedex-like app to search for Pokemon",
 };
 
 export default function RootLayout({

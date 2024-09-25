@@ -9,6 +9,12 @@ interface PokemonTypeIconProps {
   tooltip?: boolean;
 }
 
+/**
+ * Description
+ * @param type Tipo de pokemon
+ * @param tooltip Si el icono requiere tener tooltip
+ * @returns Icono del tipo de pokemon
+ */
 const PokemonTypeIcon: React.FC<PokemonTypeIconProps> = ({ type, tooltip = false }) => {
   const IconComponent = typeIcons[type];
   const color = getColorByType(type).secondary;

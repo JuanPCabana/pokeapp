@@ -9,6 +9,11 @@ interface SearchBarProps {
   placeholder: string
 }
 
+/**
+ * Componente que se encarga de mostrar un buscador y selectores de filtros para los pokemones.
+ * @param placeholder Placeholder del buscador.
+ * @returns JSX
+ */
 const SearchBar: React.FC<SearchBarProps> = ({ placeholder }) => {
   const dispatch = useAppDispatch()
   const searchQuery = useAppSelector((state) => state.pokemonReducer.searchQuery)

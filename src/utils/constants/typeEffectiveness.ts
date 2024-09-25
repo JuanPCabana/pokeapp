@@ -10,6 +10,11 @@ interface TypeEffectivenessTyping {
   };
 }
 
+/**
+ * Efectividad de los tipos de pokemon.
+ * @example
+ * console.log(TYPE_EFFECTIVENESS['fire']) => { defendingDamage: { x0: [], half: ['fire', 'grass', 'bug', 'ice', 'steel', 'fairy'], x2: ['water', 'rock', 'ground'] }, attackingDamage: { x0: [], half: ['fire', 'water', 'rock', 'dragon'], x2: ['grass', 'ice', 'bug', 'steel'] } }
+ */
 export const TYPE_EFFECTIVENESS: TypeEffectivenessTyping = {
   fire: {
     defendingDamage: {
@@ -43,7 +48,7 @@ export const TYPE_EFFECTIVENESS: TypeEffectivenessTyping = {
     },
     attackingDamage: {
       x0: ["ghost"],
-      weakAgainst: ["rock", "steel"],
+      half: ["rock", "steel"],
       x2: [],
     },
   },

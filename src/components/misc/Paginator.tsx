@@ -11,6 +11,12 @@ import {
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { setNextPokemonPage, setPreviousPokemonPage, setPage } from '@/redux/features/pokemonSlice'
 
+
+
+/**
+ * Componente que se encarga de mostrar la paginación de la lista de pokemones en base a la página actual y la cantidad de páginas. (Usa el store de redux)
+ * @returns {any}
+ */
 const Paginator = () => {
   const dispatch = useAppDispatch()
   const actualPage = useAppSelector((state) => state.pokemonReducer.page)
