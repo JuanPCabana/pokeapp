@@ -42,6 +42,7 @@ export async function GET(
       id: pokemonDetails.id.toString(),
       name: pokemonDetails.name,
       img: pokemonDetails.sprites.front_default ?? "",
+      shinyImg: pokemonDetails.sprites.front_shiny ?? "",
       stats: pokemonDetails.stats.map((stat: PokemonStatsIface) => ({
         name: stat.stat.name,
         value: stat.base_stat,
