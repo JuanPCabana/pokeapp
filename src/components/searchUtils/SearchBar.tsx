@@ -15,7 +15,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ placeholder }) => {
   return (
     <div className='grid grid-cols-4 gap-5'>
       <div>
-        <h1 className='' >Buscador </h1>
+        <h1 className='my-3' >Buscador </h1>
         <Input className='w-full ' type='text' placeholder={placeholder} value={searchQuery} onChange={(e) => dispatch(setSearchQuery(e.target.value))} />
       </div>
 
