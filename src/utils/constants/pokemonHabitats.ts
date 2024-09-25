@@ -12,14 +12,14 @@ interface PokemonHabitatTraduction {
 }
 
 const POKEMON_HABITAT_TRADUCTION: PokemonHabitatTraduction = {
-  cave: "Cueva / Cave",
-  forest: "Bosque / Forest",
-  grassland: "Pradera / Grassland",
-  mountain: "Montaña / Mountain",
-  rare: "Raro / Rare",
-  roughTerrain: "Terreno abrupto / Rough terrain",
-  sea: "Mar / Sea",
-  urban: "Urbano / Urban",
-  watersEdge: "Orilla del agua / Water's edge",
+  cave: "Cueva",
+  forest: "Bosque",
+  grassland: "Pradera",
+  mountain: "Montaña",
+  rare: "Raro",
+  roughTerrain: "Terreno abrupto terrain",
+  sea: "Mar",
+  urban: "Urbano",
+  watersEdge: "Orilla del agua's edge",
 };
 export { POKEMON_HABITAT_TRADUCTION };
