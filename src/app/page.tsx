@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 import PokemonList from '@/components/Pokemon/PokemonList';
 import { useGetPokemonsQuery } from '@/redux/services/pokemonApi';
-import { setDisplayPokemonList, setFullPokemonList } from '@/redux/features/pokemonSlice';
+import { setDisplayPokemonList, setFullPokemonList, setSearchQuery } from '@/redux/features/pokemonSlice';
 import PokeballSpinner from '@/components/misc/PokeballSpinner';
 import Paginator from '@/components/misc/Paginator';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
@@ -20,6 +20,7 @@ const HomePage = () => {
   const type = useAppSelector((state) => state.pokemonReducer.typeFilter)
   const generation = useAppSelector((state) => state.pokemonReducer.generationFilter)
   const refetchTrigger = useAppSelector((state) => state.pokemonReducer.refetchTrigger)
+  const searchQuery = useAppSelector((state) => state.pokemonReducer.searchQuery)
   const { data, error, isLoading, refetch } = useGetPokemonsQuery({ limit: 10000, offset: 0, type, generation })
 
   useEffect(() => {
@@ -35,6 +36,12 @@ const HomePage = () => {
   useEffect(() => {
     refetch()
   }, [type, generation, refetchTrigger, refetch])
+
+  useEffect(() => {
+    if (searchQuery) {
+      dispatch(setSearchQuery(searchQuery))
+    }
+  }, [dispatch, searchQuery])
 
   const renderPokemonList = () => {
     if (isLoading) return <PokeballSpinner variant='main' />
