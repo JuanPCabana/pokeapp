@@ -70,3 +70,14 @@ Este proyecto también se puede ejecutar utilizando Docker. Luego de clonar el r
 
 2. Abre tu navegador y ve a [http://localhost:3000](http://localhost:3000).
 
+## Herramientas usadas
+
+Para el desarrollo del proyecto se usaron varias herramientas entre las cuales estan :
+
+- Next.Js V14
+- TypeScript
+- Tailwind
+- Shadcn
+- Redux Toolkit
+- Axios
+- @svgr/webpack
