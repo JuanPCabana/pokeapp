@@ -46,7 +46,7 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({ params }) => {
   }
 
   const gradient = gradientMaker(pokemonData?.types[0], pokemonData?.types[1])
-  const PokemonName = capitalizer(pokemonData?.name as string)
+  const pokemonName = pokemonData?.name.split('-').map((word: string) => capitalizer(word)).join(' ') as string
   const pokedexNumber = pokemonData?.nationalPokedexNumber
   const pokemonMainImage = pokemonData?.img
   const shinyImage = pokemonData?.shinyImg
@@ -66,7 +66,7 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({ params }) => {
           <Link href='/'>
             <ArrowLeft className='mr-5' />
           </Link>
-          <CardTitle className="text-3xl font-bold">{PokemonName}</CardTitle>
+          <CardTitle className="text-3xl font-bold">{pokemonName}</CardTitle>
         </div>
         <div className="text-xl font-semibold text-end">N° Pokedex Nacional: {pokedexNumber}</div>
       </CardHeader>
@@ -76,7 +76,7 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({ params }) => {
           <div className="space-y-6">
 
             <div className="flex justify-between items-center">
-              <ImageDisplayer src={pokemonMainImage} alt={PokemonName} />
+              <ImageDisplayer src={pokemonMainImage} alt={pokemonName} />
               <div>
                 <h3 className="text-lg font-semibold mb-2">Tipos</h3>
                 <div className="flex gap-2">
@@ -151,7 +151,7 @@ const PokemonDetails: React.FC<PokemonDetailsProps> = ({ params }) => {
 
             <div>
               <h3 className="text-lg font-semibold mb-2">Version Shiny</h3>
-              <ImageDisplayer src={shinyImage} alt={`shiny ${PokemonName}`} />
+              <ImageDisplayer src={shinyImage} alt={`shiny ${pokemonName}`} />
             </div>
 
           </div>

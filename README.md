@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pokédex
 
-## Getting Started
+Este es un proyecto de Pokédex desarrollado con Next.js. Permite explorar información sobre Pokémon de manera interactiva y en tiempo real utilizando la PokéAPI.
 
-First, run the development server:
+## Requisitos Previos
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Asegúrate de tener instalado lo siguiente:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [Node.js](https://nodejs.org/) (v18 o superior) (Obligatorio)
+- [Docker](https://www.docker.com/get-started) y [Docker Compose](https://docs.docker.com/compose/) (RECOMENDADO)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Instalación
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Clona este repositorio:
 
-## Learn More
+   ```bash
+   git clone https://github.com/JuanPCabana/pokeapp
+   cd pokedex
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+2. En caso de estar en linux o WSL usa el siguiente comando para usar la version de node recomendada para el proyecto:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   nvm install && nvm use
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. Instala las dependencias:
 
-## Deploy on Vercel
+   ```bash
+   npm install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Ejecución en Local
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Para ejecutar el proyecto en tu entorno local, sigue estos pasos:
+
+1. Inicia el servidor de desarrollo:
+
+   ```bash
+   npm run dev
+   ```
+
+2. Abre tu navegador y ve a [http://localhost:3000](http://localhost:3000).
+
+## Ejecución con Docker
+
+Este proyecto también se puede ejecutar utilizando Docker. Luego de clonar el repositorio sigue los pasos a continuación:
+
+### Con Docker
+
+1. Construye la imagen Docker:
+
+   ```bash
+   docker build -t pokedex .
+   ```
+
+2. Ejecuta el contenedor:
+
+   ```bash
+   docker run -p 3000:3000 pokedex
+   ```
+
+### Con Docker Compose
+
+1. Ejecuta el proyecto con Docker Compose:
+
+   ```bash
+   docker-compose up
+   ```
+
+2. Abre tu navegador y ve a [http://localhost:3000](http://localhost:3000).
+

@@ -41,7 +41,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
   const displayPokemonList = useAppSelector(state => state.pokemonReducer.displayPokemonList)
   const limit = useAppSelector(state => state.pokemonReducer.limit)
   const searchQuery = useAppSelector(state => state.pokemonReducer.searchQuery)
-  const searchingByName = isNaN(parseInt(searchQuery))
+  const searchingByName = isNaN(parseInt(searchQuery)) && searchQuery !== ''
   const { data: pokemonData, error, isLoading, refetch } = useGetPokemonByidQuery(pokemonId)
 
   useEffect(() => {
